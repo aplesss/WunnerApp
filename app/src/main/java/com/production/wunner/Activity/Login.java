@@ -23,6 +23,7 @@ import androidx.core.content.ContextCompat;
 import com.google.gson.Gson;
 import com.production.wunner.Api.GetWunnerDataService;
 import com.production.wunner.Api.RetrofitInstance;
+import com.production.wunner.Custom.CustomDialog;
 import com.production.wunner.Model.User;
 import com.production.wunner.R;
 
@@ -39,6 +40,7 @@ public class Login extends AppCompatActivity {
     String user,pass;
     User userData;
     private static final int MY_LOCATION_REQUEST_CODE = 1977;
+    CustomDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +53,7 @@ public class Login extends AppCompatActivity {
         {
             String name=preferences.getString("user_name",null);
             String pass= preferences.getString("pass",null);
+
             Validation(name,pass);
         }
         Mapping();
@@ -60,7 +63,7 @@ public class Login extends AppCompatActivity {
             public void onClick(View v) {
                 user= edit_name.getText().toString();
                 pass =edit_pass.getText().toString();
-                if(user==null|| pass==null)
+                if(user==""| pass=="")
                 {
                     Toast.makeText(getApplicationContext(),"Please complete info",Toast.LENGTH_SHORT).show();
                 }
@@ -81,6 +84,10 @@ public class Login extends AppCompatActivity {
         Intent intent =new Intent(Login.this,UserInfo.class);
         intent.putExtra("UserData",userData);
         Login.this.startActivity(intent);
+        if(progressDialog.isShowing())
+        {
+            progressDialog.hideDialog();
+        }
         Login.this.finish();
         /*switch (num_stage)
         {
@@ -120,6 +127,8 @@ public class Login extends AppCompatActivity {
     }
 
     private boolean Validation(String user, String pass) {
+        progressDialog =new CustomDialog(this);
+        progressDialog.showDialog();
         GetWunnerDataService service = RetrofitInstance.getRetrofitInstance().create(GetWunnerDataService.class);
         GetWunnerDataService.UserLogin userLogin= new GetWunnerDataService.UserLogin(user,pass);
         Log.d("Tag",new Gson().toJson(userLogin));
@@ -137,6 +146,10 @@ public class Login extends AppCompatActivity {
                 }
                 else
                 { Toast.makeText(getApplicationContext(),"Fail to Login",Toast.LENGTH_SHORT).show();
+                    if(progressDialog.isShowing())
+                    {
+                        progressDialog.hideDialog();
+                    }
                 }
             }
             @Override

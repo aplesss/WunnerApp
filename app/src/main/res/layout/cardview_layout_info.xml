@@ -52,7 +52,7 @@
             android:singleLine="true"
             android:fontFamily="@font/roboto_regular"
             android:text="20 Wardrobes"
-            android:textColor="#2196F3"
+            android:textColor="#030303"
             android:textSize="12sp" />
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -92,6 +93,7 @@ public class MainActivity extends AppCompatActivity implements GoogleMap.OnMarke
 
     private void UpdateTextTime(Intent intent) {
         long timer =intent.getExtras().getLong("responetimer");
+        Log.d("Timer", String.valueOf(timer));
         txt_timer.setText(new SimpleDateFormat("mm:ss").format(new Date(timer)));
         if(timer<=0)
         {

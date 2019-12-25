@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.navigation.NavigationView;
 import com.production.wunner.Api.GetWunnerDataService;
 import com.production.wunner.Api.RetrofitInstance;
+import com.production.wunner.Custom.CustomDialog;
 import com.production.wunner.Item;
 import com.production.wunner.Model.Station;
 import com.production.wunner.Model.User;
@@ -42,6 +43,7 @@ public class UserInfo extends AppCompatActivity  {
     private NavigationView navigationView;
     private ActionBarDrawerToggle toggle;
     private DrawerLayout drawerLayout;
+    private CustomDialog dialog;
     User userdata;
     int[] myImageList = {R.drawable.gradient1, R.drawable.gradient2,R.drawable.gradient3,
             R.drawable.gradient4,R.drawable.gradient5};
@@ -75,6 +77,8 @@ public class UserInfo extends AppCompatActivity  {
         btn_start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                dialog = new CustomDialog(UserInfo.this);
+                dialog.showDialog();
                 FetchDataStation("station1");
                // Intent intent =new Intent(UserInfo.this,MainActivity.class);
                // UserInfo.this.startActivity(intent);
@@ -157,6 +161,7 @@ public class UserInfo extends AppCompatActivity  {
          intent.putExtra("StationDataRun",response);
          UserInfo.this.startActivity(intent);
          UserInfo.this.finish();
+         dialog.hideDialog();
     }
 
     private void UpdateData() {
