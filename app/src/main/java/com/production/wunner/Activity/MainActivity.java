@@ -51,7 +51,8 @@ public class MainActivity extends AppCompatActivity implements GoogleMap.OnMarke
     ArrayList<String> name=new ArrayList<>();
     TextView txt_name_location,txt_timer,txt_distance,txt_postion_location;
     CountDownTimer countDownTimer;
-    private int timedown=1000;
+    //private int timedown=1000;
+    private int timedown=10;
     private Station station;
 
     @Override

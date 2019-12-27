@@ -23,7 +23,9 @@
         android:roundIcon="@mipmap/logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Submit"></activity>
+        <activity android:name=".Submit">
+
+        </activity>
         <activity android:name=".Activity.show_misson" />
         <activity android:name=".Activity.UserInfo" />
         <activity android:name=".Activity.Misson" />

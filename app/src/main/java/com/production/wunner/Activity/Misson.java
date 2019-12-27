@@ -41,6 +41,7 @@ public class Misson extends Fragment {
     int endTime = 25;
     TextView txt_timer,txt_mission;
     Button btn_submit;
+    DatabaseReference reference;
     Station station;
     public static Misson newInstance(Context context, Station station) {
         return new Misson(context,station);
@@ -78,16 +79,15 @@ public class Misson extends Fragment {
                 updateStage(1);
                 context.unregisterReceiver(receiver);
                 Toast.makeText(context,"Congratulation. Please wait to check ",Toast.LENGTH_SHORT).show();
-                final DatabaseReference reference= FirebaseDatabase.getInstance().getReference(station.getStationID());
+                reference= FirebaseDatabase.getInstance().getReference(station.getStationID());
                 reference.setValue("Update");
                 reference.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         String valume =dataSnapshot.getValue(String.class);
-                        if(valume=="Rated")
+                        if(valume.compareTo("Rated")==0);
                         {
-                            reference.setValue("Updated");
-                            //xử lý sau khi bên kia chấm kết quả xong.
+                          HandlerResult();
                         }
                     }
 
@@ -101,6 +101,10 @@ public class Misson extends Fragment {
         return view;
 
 
+    }
+
+    private void HandlerResult() {
+        reference.setValue("Updated");
     }
 
     private void updateStage(int numstage) {
