@@ -23,9 +23,9 @@ public class Submit extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_submit);
-        //Intent intent=new Intent();
-        //String station_id=intent.getStringExtra("station_id");
-        reference=database.getReference("station1");
+        Intent intent=new Intent();
+        String station_id=intent.getStringExtra("station_id");
+        reference=database.getReference(station_id);
         reference.setValue("Updated");
 
         reference.addValueEventListener(new ValueEventListener() {
