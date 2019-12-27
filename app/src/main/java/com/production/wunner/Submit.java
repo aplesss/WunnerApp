@@ -2,6 +2,7 @@ package com.production.wunner;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Telephony;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -19,6 +20,7 @@ public class Submit extends AppCompatActivity {
 
     private FirebaseDatabase database=FirebaseDatabase.getInstance();
     private DatabaseReference reference;
+    private String team_id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,8 +34,10 @@ public class Submit extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 String valume =dataSnapshot.getValue(String.class);
-                if (valume=="Update")
+                if (valume!="Updated" && valume!= "Rated")
                 {
+                    //todo team id nè 
+                    team_id=valume;
                     SubmitScore();
                 }
             }

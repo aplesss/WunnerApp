@@ -80,7 +80,8 @@ public class Misson extends Fragment {
                 context.unregisterReceiver(receiver);
                 Toast.makeText(context,"Congratulation. Please wait to check ",Toast.LENGTH_SHORT).show();
                 reference= FirebaseDatabase.getInstance().getReference(station.getStationID());
-                reference.setValue("Update");
+                reference.setValue("team1");
+                //TODO tý nữa nhớ sửa "team1" là team id nha.
                 reference.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
