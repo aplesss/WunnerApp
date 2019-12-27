@@ -194,9 +194,9 @@ public class MainActivity extends AppCompatActivity implements GoogleMap.OnMarke
                     station.getMarker().setTitle(station.getStationName());
                     ggmap.moveCamera(CameraUpdateFactory.newLatLng(temp));
                     Intent intent = new Intent(MainActivity.this, TimeCounterService.class);
-                    //intent.putExtra("count_timer", 100000000);
+                    intent.putExtra("count_timer", 10);
 
-                    intent.putExtra("count_timer", (long) station.getStationTime());
+                    //intent.putExtra("count_timer", (long) station.getStationTime());
                     startService(intent);
                 if(ggmap!=null) {
                     ggmap.setOnMarkerClickListener(MainActivity.this);

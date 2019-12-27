@@ -16,8 +16,15 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.production.wunner.Model.Station;
 import com.production.wunner.R;
 import com.production.wunner.TimeCounterService;
@@ -52,6 +59,7 @@ public class Misson extends Fragment {
         txt_mission=view.findViewById(R.id.txt_mission);
         btn_submit= view.findViewById(R.id.btn_submit);
         endTime= (int) station.getStationTime();
+
         // setSupportActionBar(toolbar);
 
         progressBarView = (ProgressBar) view.findViewById(R.id.view_progress_bar);
@@ -70,6 +78,24 @@ public class Misson extends Fragment {
                 updateStage(1);
                 context.unregisterReceiver(receiver);
                 Toast.makeText(context,"Congratulation. Please wait to check ",Toast.LENGTH_SHORT).show();
+                final DatabaseReference reference= FirebaseDatabase.getInstance().getReference(station.getStationID());
+                reference.setValue("Update");
+                reference.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        String valume =dataSnapshot.getValue(String.class);
+                        if(valume=="Rated")
+                        {
+                            reference.setValue("Updated");
+                            //xử lý sau khi bên kia chấm kết quả xong.
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
             }
         });
         return view;
